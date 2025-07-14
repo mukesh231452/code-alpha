@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Social Media</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <div id="app" class="max-w-4xl mx-auto">
+
+        <!-- Header -->
+        <header class="bg-white shadow-md p-4 flex justify-between items-center sticky top-0 z-10">
+            <h1 class="text-2xl font-bold text-blue-600">MiniSocial</h1>
+            <nav id="nav-links" class="hidden">
+                <button id="feed-btn" class="text-gray-600 hover:text-blue-600 mr-4">Feed</button>
+                <button id="profile-btn" class="text-gray-600 hover:text-blue-600 mr-4">Profile</button>
+                <button id="create-post-btn" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Create Post</button>
+                <button id="logout-btn" class="ml-4 text-red-500 hover:text-red-700">Logout</button>
+            </nav>
+        </header>
+
+        <main id="main-content" class="p-4">
+
+            <!-- Login/Register View -->
+            <section id="auth-view">
+                <div class="bg-white p-8 rounded-lg shadow-md max-w-sm mx-auto">
+                    <h2 class="text-2xl font-bold mb-6 text-center">Welcome</h2>
+                    <div id="login-form">
+                        <h3 class="text-xl font-semibold mb-4">Login</h3>
+                        <input type="text" id="login-username" placeholder="Username" class="w-full p-2 mb-4 border rounded-lg">
+                        <input type="password" id="login-password" placeholder="Password" class="w-full p-2 mb-4 border rounded-lg">
+                        <button id="login-btn" class="w-full bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700">Login</button>
+                        <p class="text-center mt-4">Don't have an account? <button id="show-register" class="text-blue-600">Register</button></p>
+                    </div>
+                    <div id="register-form" class="hidden">
+                         <h3 class="text-xl font-semibold mb-4">Register</h3>
+                        <input type="text" id="register-username" placeholder="Username" class="w-full p-2 mb-4 border rounded-lg">
+                        <input type="password" id="register-password" placeholder="Password" class="w-full p-2 mb-4 border rounded-lg">
+                        <button id="register-btn" class="w-full bg-green-600 text-white p-2 rounded-lg hover:bg-green-700">Register</button>
+                        <p class="text-center mt-4">Already have an account? <button id="show-login" class="text-blue-600">Login</button></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Feed View -->
+            <section id="feed-view" class="hidden">
+                <h2 class="text-2xl font-bold mb-4">Your Feed</h2>
+                <div id="posts-container" class="space-y-4">
+                    <!-- Example Post -->
+                    <div class="bg-white p-4 rounded-lg shadow-md">
+                        <div class="flex items-center mb-2">
+                            <img src="https://placehold.co/40x40/E2E8F0/4A5568?text=U" alt="user avatar" class="w-10 h-10 rounded-full mr-3">
+                            <div>
+                                <h4 class="font-bold">user_one</h4>
+                                <p class="text-sm text-gray-500">2 hours ago</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-800 mb-4">This is a sample post on our new social media platform! #helloworld</p>
+                        <div class="flex items-center text-gray-500">
+                            <button class="flex items-center mr-6 hover:text-red-500">
+                                <i class="far fa-heart mr-2"></i> 15 Likes
+                            </button>
+                            <button class="flex items-center hover:text-blue-500">
+                                <i class="far fa-comment-alt mr-2"></i> 3 Comments
+                            </button>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-gray-200">
+                            <h5 class="font-semibold mb-2">Comments</h5>
+                            <div class="space-y-3">
+                                <div class="flex items-start">
+                                    <img src="https://placehold.co/32x32/E2E8F0/4A5568?text=C" alt="user avatar" class="w-8 h-8 rounded-full mr-3">
+                                    <div>
+                                        <p><span class="font-bold">commenter_a</span> Great post!</p>
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="mt-4 flex">
+                                <input type="text" placeholder="Write a comment..." class="w-full p-2 border rounded-l-lg">
+                                <button class="bg-blue-500 text-white px-4 rounded-r-lg hover:bg-blue-600">Post</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- More posts will be dynamically added here -->
+                </div>
+            </section>
+
+            <!-- Profile View -->
+            <section id="profile-view" class="hidden">
+                 <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex items-center flex-col sm:flex-row">
+                        <img id="profile-avatar" src="https://placehold.co/128x128/E2E8F0/4A5568?text=P" alt="profile avatar" class="w-32 h-32 rounded-full mr-0 sm:mr-8 mb-4 sm:mb-0 border-4 border-blue-500">
+                        <div>
+                            <h2 id="profile-username" class="text-3xl font-bold">YourUsername</h2>
+                            <div class="flex space-x-6 text-gray-600 mt-2">
+                                <span><span id="post-count" class="font-bold">1</span> Post</span>
+                                <span><span id="follower-count" class="font-bold">150</span> Followers</span>
+                                <span><span id="following-count" class="font-bold">80</span> Following</span>
+                            </div>
+                            <button id="follow-btn" class="mt-4 bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600">Follow</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-6">
+                    <h3 class="text-xl font-bold mb-4">Your Posts</h3>
+                    <div id="user-posts-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                       <!-- User's posts will be dynamically loaded here -->
+                        <div class="bg-white p-3 rounded-lg shadow-md">
+                            <p>This is one of my posts.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Create Post Modal -->
+        <div id="create-post-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-20">
+            <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-md">
+                <h2 class="text-2xl font-bold mb-4">Create a New Post</h2>
+                <textarea id="post-content" rows="5" class="w-full p-2 border rounded-lg" placeholder="What's on your mind?"></textarea>
+                <div class="mt-4 flex justify-end">
+                    <button id="cancel-post-btn" class="text-gray-600 mr-4">Cancel</button>
+                    <button id="submit-post-btn" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">Post</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // View containers
+            const authView = document.getElementById('auth-view');
+            const feedView = document.getElementById('feed-view');
+            const profileView = document.getElementById('profile-view');
+            const mainContent = document.getElementById('main-content');
+            const navLinks = document.getElementById('nav-links');
+
+            // Forms and Modals
+            const loginForm = document.getElementById('login-form');
+            const registerForm = document.getElementById('register-form');
+            const createPostModal = document.getElementById('create-post-modal');
+
+            // Buttons
+            const showRegisterBtn = document.getElementById('show-register');
+            const showLoginBtn = document.getElementById('show-login');
+            const loginBtn = document.getElementById('login-btn');
+            const registerBtn = document.getElementById('register-btn');
+            const logoutBtn = document.getElementById('logout-btn');
+            
+            const feedBtn = document.getElementById('feed-btn');
+            const profileBtn = document.getElementById('profile-btn');
+            const createPostBtn = document.getElementById('create-post-btn');
+            const cancelPostBtn = document.getElementById('cancel-post-btn');
+            const submitPostBtn = document.getElementById('submit-post-btn');
+            
+            // --- STATE MANAGEMENT (simple version) ---
+            let currentUser = null; // In a real app, this would be a token
+
+            function updateUIForAuthState() {
+                if (currentUser) {
+                    authView.classList.add('hidden');
+                    navLinks.classList.remove('hidden');
+                    showView('feed');
+                } else {
+                    authView.classList.remove('hidden');
+                    navLinks.classList.add('hidden');
+                    feedView.classList.add('hidden');
+                    profileView.classList.add('hidden');
+                }
+            }
+            
+            function showView(viewName) {
+                // Hide all main views first
+                feedView.classList.add('hidden');
+                profileView.classList.add('hidden');
+                
+                if (viewName === 'feed') {
+                    feedView.classList.remove('hidden');
+                } else if (viewName === 'profile') {
+                    profileView.classList.remove('hidden');
+                }
+            }
+
+
+            // --- EVENT LISTENERS ---
+
+            // Authentication switching
+            showRegisterBtn.addEventListener('click', () => {
+                loginForm.classList.add('hidden');
+                registerForm.classList.remove('hidden');
+            });
+
+            showLoginBtn.addEventListener('click', () => {
+                registerForm.classList.add('hidden');
+                loginForm.classList.remove('hidden');
+            });
+
+            // Authentication actions (dummy)
+            loginBtn.addEventListener('click', () => {
+                const username = document.getElementById('login-username').value;
+                if (!username) {
+                    alert('Please enter a username');
+                    return;
+                }
+                currentUser = { username: username };
+                // In a real app, you would make an API call here
+                console.log(`Logged in as ${username}`);
+                updateUIForAuthState();
+            });
+
+            registerBtn.addEventListener('click', () => {
+                const username = document.getElementById('register-username').value;
+                if (!username) {
+                    alert('Please enter a username');
+                    return;
+                }
+                // In a real app, you would make an API call to register
+                alert(`Registered ${username}! Please log in.`);
+                showLoginBtn.click(); // Switch to login form
+            });
+
+            logoutBtn.addEventListener('click', () => {
+                currentUser = null;
+                // In a real app, you would clear tokens/session
+                console.log('Logged out');
+                updateUIForAuthState();
+            });
+
+            // Navigation
+            feedBtn.addEventListener('click', () => showView('feed'));
+            profileBtn.addEventListener('click', () => showView('profile'));
+            
+            // Post Modal
+            createPostBtn.addEventListener('click', () => {
+                createPostModal.classList.remove('hidden');
+            });
+
+            cancelPostBtn.addEventListener('click', () => {
+                createPostModal.classList.add('hidden');
+                document.getElementById('post-content').value = ''; // Clear textarea
+            });
+
+            submitPostBtn.addEventListener('click', () => {
+                const content = document.getElementById('post-content').value;
+                if (!content) {
+                    alert('Post cannot be empty!');
+                    return;
+                }
+                // In a real app, send this to the backend
+                console.log('New Post:', { user: currentUser.username, content: content });
+                alert('Post created successfully!');
+                cancelPostBtn.click(); // Close modal and clear
+                // Ideally, you'd also refresh the feed here
+            });
+            
+            // Initial UI update
+            updateUIForAuthState();
+        });
+    </script>
+</body>
+</html>
